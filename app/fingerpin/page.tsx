@@ -186,7 +186,7 @@ export default function FingerPinLandingPage() {
                 <Badge icon={<Sparkles className="w-3.5 h-3.5" />} text="리테일 미디어 혁신" variant="primary" />
               </div>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#37322F] mb-6 leading-tight text-balance">
-                전자영수증이<br className="md:hidden" /> <span className="text-[#0066FF]">광고 매체</span>가 됩니다
+                전자영수증이<br className="md:hidden" /> <span className="text-[#0066FF] whitespace-nowrap">광고 매체</span>가 됩니다
               </h1>
               <p className="text-lg md:text-xl text-[#605A57] mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed text-pretty">
                 구매 직후 가장 높은 관심을 가진 순간,<br />
