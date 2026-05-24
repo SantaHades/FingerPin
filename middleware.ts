@@ -11,7 +11,13 @@ export function middleware(request: NextRequest) {
     return NextResponse.rewrite(url)
   }
 
-  if (decodedPathname === "/sh" || decodedPathname === "/sh/") {
+  if (decodedPathname === "/sh" || decodedPathname === "/sh/" || decodedPathname === "/sys" || decodedPathname === "/sys/") {
+    const url = request.nextUrl.clone()
+    url.pathname = "/손용석"
+    return NextResponse.redirect(url)
+  }
+
+  if (decodedPathname === "/손용석" || decodedPathname === "/손용석/") {
     const url = request.nextUrl.clone()
     url.pathname = "/sys"
     return NextResponse.rewrite(url)
