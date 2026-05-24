@@ -11,6 +11,12 @@ export function middleware(request: NextRequest) {
     return NextResponse.rewrite(url)
   }
 
+  if (decodedPathname === "/sh" || decodedPathname === "/sh/") {
+    const url = request.nextUrl.clone()
+    url.pathname = "/sys"
+    return NextResponse.rewrite(url)
+  }
+
   return NextResponse.next()
 }
 
