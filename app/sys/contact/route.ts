@@ -4,7 +4,7 @@ export async function GET() {
   const vcard = [
     "BEGIN:VCARD",
     "VERSION:3.0",
-    "N:손용석;Sohn YongSeog;;;",
+    "N:손용석 Sohn YongSeog;;;;",
     "FN:손용석 Sohn YongSeog",
     "ORG:(주)산타하데스",
     "TITLE:CEO / 대표이사",
