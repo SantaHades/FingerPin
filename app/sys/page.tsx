@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react"
 import Image from "next/image"
-import { Mail, Phone, Globe, MapPin, Copy, Check, ExternalLink, Download, Maximize2, RotateCw, X } from "lucide-react"
+import { Mail, Phone, Globe, MapPin, Copy, Check, ExternalLink, Download, Maximize2, RotateCw, X, UserPlus } from "lucide-react"
 
 export default function SysPage() {
   const [copiedText, setCopiedText] = useState<string | null>(null)
@@ -19,6 +19,32 @@ export default function SysPage() {
     } catch (err) {
       console.error("Failed to copy text: ", err)
     }
+  }
+
+  const handleSaveContact = () => {
+    const vcard = [
+      "BEGIN:VCARD",
+      "VERSION:3.0",
+      "N:손;용석;Sohn;YongSeog;",
+      "FN:손용석 Sohn YongSeog",
+      "ORG:(주)산타하데스",
+      "TITLE:CEO / 대표이사",
+      "TEL;TYPE=CELL,VOICE:010-3717-9717",
+      "EMAIL;TYPE=PREF,INTERNET:sys@santahades.com",
+      "URL:https://www.santahades.com",
+      "ADR;TYPE=WORK:;;경기도 용인시 기흥구 공세로 150-29, B01-H306호;;;;",
+      "END:VCARD"
+    ].join("\r\n");
+
+    const blob = new Blob(["\uFEFF" + vcard], { type: "text/vcard;charset=utf-8;" });
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", "손용석_연락처.vcf");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    window.URL.revokeObjectURL(url);
   }
 
   // 3D Card Tilt Effect (Only on desktop)
@@ -135,8 +161,11 @@ export default function SysPage() {
               <span className="text-xs tracking-[0.2em] font-semibold text-[#00E5FF]">VERIFIED ORIGINAL</span>
             </div>
             
-            <div className="flex items-baseline gap-3">
-              <h1 className="text-3xl font-bold tracking-tight">손용석</h1>
+            <div className="flex flex-col gap-1">
+              <div className="flex items-baseline gap-3">
+                <h1 className="text-3xl font-bold tracking-tight">손용석</h1>
+                <span className="text-lg font-medium text-[#00E5FF]">Sohn YongSeog</span>
+              </div>
               <span className="text-sm font-medium text-gray-400">CEO / 대표이사</span>
             </div>
             <p className="text-lg font-semibold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
@@ -243,24 +272,33 @@ export default function SysPage() {
           </div>
 
           {/* Action buttons */}
-          <div className="flex gap-3">
-            <a 
-              href="/sys.png" 
-              download="SantaHades_Card.png"
-              className="flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-white text-black font-semibold text-sm hover:bg-gray-200 active:scale-[0.98] transition-all cursor-pointer"
+          <div className="space-y-3">
+            <button 
+              onClick={handleSaveContact}
+              className="w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl bg-[#00E5FF] text-black font-semibold text-sm hover:bg-[#00D0EB] active:scale-[0.98] transition-all cursor-pointer shadow-[0_0_20px_rgba(0,229,255,0.3)] hover:shadow-[0_0_25px_rgba(0,229,255,0.5)]"
             >
-              <Download className="h-4 w-4" />
-              이미지 다운로드
-            </a>
-            <a 
-              href="/sys.png" 
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-white/5 border border-white/10 font-semibold text-sm hover:bg-white/10 active:scale-[0.98] transition-all cursor-pointer"
-            >
-              <ExternalLink className="h-4 w-4" />
-              원본 이미지 보기
-            </a>
+              <UserPlus className="h-4 w-4" />
+              휴대폰 연락처에 등록
+            </button>
+            <div className="flex gap-3">
+              <a 
+                href="/sys.png" 
+                download="SantaHades_Card.png"
+                className="flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-white text-black font-semibold text-sm hover:bg-gray-200 active:scale-[0.98] transition-all cursor-pointer"
+              >
+                <Download className="h-4 w-4" />
+                이미지 다운로드
+              </a>
+              <a 
+                href="/sys.png" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-white/5 border border-white/10 font-semibold text-sm hover:bg-white/10 active:scale-[0.98] transition-all cursor-pointer"
+              >
+                <ExternalLink className="h-4 w-4" />
+                원본 보기
+              </a>
+            </div>
           </div>
 
           {/* Toast Notification Alert */}
