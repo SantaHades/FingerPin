@@ -15,13 +15,8 @@ export async function GET() {
     "END:VCARD"
   ].join("\r\n")
 
-  // UTF-8 BOM to prevent encoding issues on Windows Outlook/Android
   const encoder = new TextEncoder()
-  const bom = new Uint8Array([0xEF, 0xBB, 0xBF])
-  const vcardBytes = encoder.encode(vcard)
-  const data = new Uint8Array(bom.length + vcardBytes.length)
-  data.set(bom)
-  data.set(vcardBytes, bom.length)
+  const data = encoder.encode(vcard)
 
   return new Response(data, {
     headers: {
