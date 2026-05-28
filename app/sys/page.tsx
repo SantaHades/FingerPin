@@ -21,32 +21,6 @@ export default function SysPage() {
     }
   }
 
-  const handleSaveContact = () => {
-    const vcard = [
-      "BEGIN:VCARD",
-      "VERSION:3.0",
-      "N:손;용석;Sohn;YongSeog;",
-      "FN:손용석 Sohn YongSeog",
-      "ORG:(주)산타하데스",
-      "TITLE:CEO / 대표이사",
-      "TEL;TYPE=CELL,VOICE:010-3717-9717",
-      "EMAIL;TYPE=PREF,INTERNET:sys@santahades.com",
-      "URL:https://www.santahades.com",
-      "ADR;TYPE=WORK:;;경기도 용인시 기흥구 공세로 150-29, B01-H306호;;;;",
-      "END:VCARD"
-    ].join("\r\n");
-
-    const blob = new Blob(["\uFEFF" + vcard], { type: "text/vcard;charset=utf-8;" });
-    const url = window.URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.setAttribute("download", "손용석_연락처.vcf");
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    window.URL.revokeObjectURL(url);
-  }
-
   // 3D Card Tilt Effect (Only on desktop)
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     // Disable 3D tilt if we are on a touch device
@@ -273,13 +247,14 @@ export default function SysPage() {
 
           {/* Action buttons */}
           <div className="space-y-3">
-            <button 
-              onClick={handleSaveContact}
+            <a 
+              href="/sys/contact"
+              download="손용석_연락처.vcf"
               className="w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl bg-[#00E5FF] text-black font-semibold text-sm hover:bg-[#00D0EB] active:scale-[0.98] transition-all cursor-pointer shadow-[0_0_20px_rgba(0,229,255,0.3)] hover:shadow-[0_0_25px_rgba(0,229,255,0.5)]"
             >
               <UserPlus className="h-4 w-4" />
               휴대폰 연락처에 등록
-            </button>
+            </a>
             <div className="flex gap-3">
               <a 
                 href="/sys.png" 
